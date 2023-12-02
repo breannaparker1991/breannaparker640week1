@@ -1,0 +1,110 @@
+---
+title: "Untitled"
+output: html_document
+date: "2023-11-29"
+---
+
+
+```{r setup, include=FALSE}
+setwd("C:/Users/brean/OneDrive/Desktop/640/week1/breannaparker640week1")
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+```{r}
+library(readxl)
+library(tidyr) 
+library(ggplot2)
+library(gcookbook)
+
+data_hcw <- read_excel("hotdog-contest-winners.xlsm")
+data_hcw
+
+```
+```{r}
+colnames(data_hcw) <- c('year','winner','dogs_eaten', 'country', 'new_record')
+
+data_hcw
+
+```
+
+```{r}
+
+top_ten_descend <- data_hcw[order(-data_hcw$dogs_eaten), ]
+pie(top_ten_descend$dogs_eaten, 
+    main = "Hot Dog eating Contest Numbers")
+
+
+```
+
+```{r}
+library(readxl)
+
+data_hp <- read_excel("hotdog-places.xlsm")
+data_hp
+
+```
+
+```{r}
+rownames(data_hp) <- 1 : 3
+data_hp
+
+```
+
+
+```{r}
+library(tidyverse)
+library(scales)
+library(ggpubr)
+
+ ggpubr::ggdonutchart(data = data_hp, x = "2001", label = "label", color = "white",
+                     lab.font = "white",fill = "os",lab.pos = "in", 
+                     orientation = "horizontal")+
+  ggsci::scale_fill_jama()+
+  theme(legend.position = "none")
+
+```
+
+
+```{r}
+library(webr)
+
+PieDonut(data_hp, aes(2001, count = share),
+         r0=0.6)
+
+
+
+```
+
+```{r}
+library(readxl)
+data_oar <- read_excel("obama-approval-ratings.xls")
+data_oar
+
+```
+
+
+```{r}
+
+
+data_pivot <-pivot_longer(data_oar, cols = c("Approve", "Disapprove", "None"), names_to = "rating", values_to = "Count")
+
+
+```
+
+```{r}
+ggplot(data_pivot, aes(x = Issue, y = Count, fill = rating)) +
+  geom_col()
+
+```
+
+```{r}
+
+```
+
+
+
+
+
+
